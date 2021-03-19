@@ -6,8 +6,8 @@ import PatientDetails from "./PatientDetails";
 import PersonalDetails from "./PersonalDetails";
 import PhoneVerification from "./PhoneVerification";
 import SuccessfulOnboarding from "./SuccessfulOnboarding";
-import SvgAvatar from "./assets/IconAvatar.svg";
-import SvgCompany from "./assets/TPC-Website.svg";
+import SvgAvatar from "../assets/images/IconAvatar.svg";
+import SvgCompany from "../assets/images/TPC-Website.svg";
 
 const Wizard = (props) => {
   // user input state management

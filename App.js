@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import React from "react";
-import Wizard from "./Wizard";
+import Wizard from "./screens/Wizard";
 
 export default function App() {
   return (
