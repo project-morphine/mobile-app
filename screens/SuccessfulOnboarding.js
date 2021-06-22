@@ -1,7 +1,6 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from 'react-native';
 
-import { Ionicons } from "@expo/vector-icons";
-import React from "react";
+import React from 'react';
 
 const SuccessfulOnboarding = ({ personalDetails, patientDetails }) => {
   return (
@@ -18,45 +17,39 @@ const SuccessfulOnboarding = ({ personalDetails, patientDetails }) => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-    overflow: "hidden",
-    // borderColor: "black",
-    // borderWidth: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    overflow: 'hidden',
     margin: 1,
   },
 
   userWelcome: {
-    flexDirection: "column",
-    width: "90%",
+    flexDirection: 'column',
+    width: '90%',
     padding: 10,
     marginBottom: 10,
     marginTop: 5,
-    justifyContent: "center",
-    alignItems: "center",
-    textAlign: "center",
-    overflow: "hidden",
-    // borderColor: "black",
-    // borderWidth: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    textAlign: 'center',
+    overflow: 'hidden',
   },
 
   page: {
     flex: 1,
     paddingVertical: 30,
-    backgroundColor: "#F6F6F6",
-    // borderColor: "black",
-    // borderWidth: 1,
+    backgroundColor: '#F6F6F6',
   },
   formHeader: {
     fontSize: 18,
-    fontFamily: "Helvetica-Bold",
-    color: "#978055",
+    fontFamily: 'Helvetica-Bold',
+    color: '#978055',
     marginBottom: 10,
   },
   subHeader: {
     fontSize: 13,
-    fontFamily: "GillSans-Light",
+    fontFamily: 'GillSans-Light',
   },
 });
 
