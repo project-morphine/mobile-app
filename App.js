@@ -8,8 +8,16 @@ import {
 
 import React from "react";
 import Wizard from "./screens/Wizard";
+import useColorSCheme from './hooks/useColorScheme';
+import Navigation from './navigation';
+
+// import StepCounterScreen from "./screens/StepCounter";
+
+// export default StepCounterScreen
 
 export default function App() {
+  const colorScheme = useColorScheme();
+
   return (
     <KeyboardAvoidingView
       behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -17,6 +25,7 @@ export default function App() {
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <Wizard />
+        <Navigation colorScheme={colorScheme}/>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
