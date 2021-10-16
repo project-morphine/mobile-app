@@ -1,8 +1,8 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 import React from 'react';
 
-const SuccessfulOnboarding = ({ personalDetails, patientDetails }) => {
+const SuccessfulOnboarding = ({ personalDetails, patientDetails, navigation }) => {
   return (
     <View style={styles.page}>
       <View style={styles.formContainer}>
@@ -10,6 +10,10 @@ const SuccessfulOnboarding = ({ personalDetails, patientDetails }) => {
         <View style={styles.inputContainer}></View>
         <Text>{JSON.stringify(personalDetails, null, 2)}</Text>
         <Text>{JSON.stringify(patientDetails, null, 2)}</Text>
+        <Button
+          title="Go to Home"
+          onPress={() => navigation.navigate('Home')}
+        />
       </View>
     </View>
   );
