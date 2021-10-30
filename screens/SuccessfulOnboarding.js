@@ -10,6 +10,13 @@ const SuccessfulOnboarding = ({ personalDetails, patientDetails }) => {
         <View style={styles.inputContainer}></View>
         <Text>{JSON.stringify(personalDetails, null, 2)}</Text>
         <Text>{JSON.stringify(patientDetails, null, 2)}</Text>
+<<<<<<< Updated upstream
+=======
+        <Button
+          title="Go to Home"
+          onPress={() => navigation.navigate('MyTabs', { screen: 'Home' })}
+        />
+>>>>>>> Stashed changes
       </View>
     </View>
   );
