@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Button } from 'react-native';
 
 import React from 'react';
 
@@ -10,6 +10,10 @@ const SuccessfulOnboarding = ({ personalDetails, patientDetails }) => {
         <View style={styles.inputContainer}></View>
         <Text>{JSON.stringify(personalDetails, null, 2)}</Text>
         <Text>{JSON.stringify(patientDetails, null, 2)}</Text>
+        <Button
+          title="Go to Home"
+          onPress={() => navigation.navigate('MyTabs', { screen: 'Home' })}
+        />
       </View>
     </View>
   );

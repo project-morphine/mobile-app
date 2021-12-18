@@ -8,7 +8,8 @@ import {
   Path,
   Button,
 } from 'react-native';
-import CircularProgress from 'react-native-circular-progress-indicator';
+// import CircularProgress from 'react-native-circular-progress-indicator';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 //Can be made variable for user to edit
 const GoalSteps = 10000;
@@ -31,7 +32,6 @@ export default function StepCounterScreen() {
   return (
     <View style={styles.container}>
       <Text style={styles.container}>Today's Progress</Text>
-
       <Text style={styles.title}>Steps Count</Text>
       <View
         style={styles.separator}
@@ -39,18 +39,14 @@ export default function StepCounterScreen() {
         darkColor="rgba(255,255,255,0.1)"
       />
 
-      <CircularProgress
-        radius={90}
-        value={StepProgress}
-        textColor='#222'
-        fontSize={20}
-        inActiveStrokeColor='#2ecc73'
-        inActiveStrokeOpacity={0.2}
-        inActiveStrokeWidth={6}
-        duration={1000}
-        // onAnimationComplete ={() => setValue(50)}
-      />
-  
+    <AnimatedCircularProgress
+        size={200}
+        width={18}
+        fill={StepProgress}
+        tintColor='#2ecc73'
+        padding= {10}
+        onAnimationComplete={() => console.log('onAnimationComplete')}
+        backgroundColor="#c1f1d6" />
       <Text style={styles.title}>{Steps}</Text>
       <View
         style={styles.separator}
@@ -58,9 +54,15 @@ export default function StepCounterScreen() {
         darkColor="rgba(255,255,255,0.1)"
       />
       <View style={{ flexDirection: 'row' }}>
-        <Button onPress={IncreaseCount} title="Increase"></Button>
-        <Text> </Text>
-        <Button onPress={DecreaseCount} title="Decrease"></Button>
+        <TouchableOpacity style={styles.buttonContainer} onPress={IncreaseCount}>
+          <Text style={styles.buttonText}>
+            Increase
+          </Text>
+        </TouchableOpacity>
+        <Text>    </Text>
+        <TouchableOpacity style={styles.buttonContainer} onPress={DecreaseCount}>
+          <Text style={styles.buttonText}>Decrease</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -71,6 +73,26 @@ export default function StepCounterScreen() {
 // </TouchableOpacity>;
 
 const styles = StyleSheet.create({
+    buttonContainer: {
+    backgroundColor: '#171E4A',
+    width: 150, 
+    height: 50, 
+    borderRadius: 6,
+    alignItems: "center", 
+    justifyContent: "center",
+    // // justifyContent: "center", 
+    flexDirection: "row",
+  }, 
+
+  buttonText: {
+    // margin: 10, 
+    fontSize: 18,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignContent: 'center',
+    color: "white", 
+    fontWeight: 'bold',
+  },
   container: {
     flex: 0.75,
     alignItems: 'center',
