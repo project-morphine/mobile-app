@@ -9,7 +9,7 @@ import SuccessfulOnboarding from './SuccessfulOnboarding';
 import SvgAvatar from '../assets/images/IconAvatar.svg';
 import SvgCompany from '../assets/images/TPC-Website.svg';
 
-const Wizard = (props) => {
+const Wizard = ({ navigation }) => {
   // user input state management
   const [activeStep, setActiveStep] = useState(0);
   const [code, setCode] = useState('');
@@ -120,6 +120,7 @@ const Wizard = (props) => {
           <SuccessfulOnboarding
             personalDetails={personalDetails}
             patientDetails={patientDetails}
+            navigation={navigation}
           />
         )}
       </View>
