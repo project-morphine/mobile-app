@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,14 +8,47 @@ import {
   TextInput,
   Button,
   TouchableOpacity,
+  KeyboardAvoidingView,
 } from "react-native";
- 
+import navigation from '@react-navigation/stack'
+
+import { auth } from "../firebase.js";
+import MyStack from '../App.js'
+
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
- 
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        //navigation.navigate("Home")
+      }
+    })
+  })
+
+  const handleSignUp = () => {
+    auth
+      .createUserWithEmailAndPassword(email, password)
+      .then(userCredentials => {
+        const user = userCredentials.user;
+        console.log('Signed up with', user.email);
+      })
+      .catch(error => alert(error.message))
+  }
+
+  const handleLogin = () => {
+    auth
+    .signInWithEmailAndPassword(email, password)
+    .then(userCredentials => {
+      const user = userCredentials.user;
+      console.log('Logged in with', user.email);
+    })
+    .catch(error => alert(error.message))
+  }
+
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView style={styles.container} behavior='padding'>
       <View
         style={styles.separator}
         lightColor="#eee"
@@ -25,7 +58,7 @@ export default function LoginScreen() {
       <Text>  </Text>
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={styles.inputView}
           placeholder="Email"
           placeholderTextColor="black"
           onChangeText={(email) => setEmail(email)}
@@ -34,7 +67,7 @@ export default function LoginScreen() {
  
       <View style={styles.inputView}>
         <TextInput
-          style={styles.TextInput}
+          style={styles.inputView}
           placeholder="Password"
           placeholderTextColor="black"
           secureTextEntry={true}
@@ -50,10 +83,19 @@ export default function LoginScreen() {
         <Text style={styles.forgot_button}>Don't have an account? Register here.</Text>
       </TouchableOpacity>
  
-      <TouchableOpacity style={styles.loginBtn}>
+      <TouchableOpacity 
+        onPress = {handleLogin}
+        style={styles.loginBtn}>
         <Text style={styles.loginText}>LOGIN</Text>
       </TouchableOpacity>
-    </View>
+
+      <TouchableOpacity 
+        onPress = {handleSignUp}
+        // disabled = {loading}
+        style={styles.loginBtn}>
+        <Text style={styles.loginText}>SIGN UP</Text>
+      </TouchableOpacity>
+    </KeyboardAvoidingView>
   );
 }
 

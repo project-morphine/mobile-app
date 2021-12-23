@@ -128,13 +128,20 @@ const Stack = createStackNavigator();
 function MyStack() {
   return (
     <Stack.Navigator>
-      {/* <Stack.Screen
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options = {{
+          headerShown: true
+        }}
+      />
+      <Stack.Screen
         name="Setup"
         component={Setup}
         options={{
           headerShown: false
         }}
-      /> */}
+      />
       <Stack.Screen
         name="MyTabs"
         component={MyTabs}
