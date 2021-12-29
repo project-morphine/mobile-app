@@ -4,15 +4,15 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  StatusBar,
-  Path,
-  Button,
 } from 'react-native';
 // import CircularProgress from 'react-native-circular-progress-indicator';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import { auth } from "../firebase.js";
+
 
 //Can be made variable for user to edit
 const GoalSteps = 10000;
+const user = auth.currentUser;
 
 export default function StepCounterScreen() {
   const [Steps, setSteps] = useState(0);
@@ -31,7 +31,7 @@ export default function StepCounterScreen() {
   //Returned in App
   return (
     <View style={styles.container}>
-      <Text style={styles.container}>Today's Progress</Text>
+      <Text style={styles.normalText}>Welcome, {auth.currentUser?.email}</Text>
       <Text style={styles.title}>Steps Count</Text>
       <View
         style={styles.separator}

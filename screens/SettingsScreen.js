@@ -4,10 +4,6 @@ import {
   View,
   StyleSheet,
   TouchableOpacity,
-  StatusBar,
-  Path,
-  Button,
-  HelperText,
   SafeAreaView, 
   FlatList,
   TextInput
@@ -18,11 +14,22 @@ import {Picker} from '@react-native-community/picker';
 import { MaterialIcons, FontAwesome } from '@expo/vector-icons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { auth } from '../firebase';
+import { useNavigation } from '@react-navigation/core';
 
-//Can be made variable for user to edit
-const Stack = createStackNavigator();
+export default function Settings() {
+  const Stack = createStackNavigator();
+  const navigation = useNavigation();
 
-export default function SettingsStack() {
+  // const handleSignOut = () => {
+  //   auth
+  //   .signOut()
+  //   .then(() => {
+  //     navigation.replace("Login")
+  //   })
+  //   .catch(error => alert(error.message))
+  // }
+
   return (
       <Stack.Navigator>
         <Stack.Screen name="Settings" component={SettingsScreen} />
@@ -87,10 +94,20 @@ function SettingsScreen({ navigation }) {
       </TouchableOpacity>
 
       <View
-        style={styles.separator}
+        style={styles.buttonSeparator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
+
+      <TouchableOpacity onPress={() => auth.signOut().then(() => {navigation.replace("Login")}
+   ).catch(error => alert(error.message))}>
+        <View style={styles.buttonContainer}>
+          <Text style={styles.buttonText}>
+            Sign Out
+          </Text>
+        </View>
+      </TouchableOpacity>
+
       <View style={{ flexDirection: 'row' }}>
 
         <Text> </Text>
@@ -105,16 +122,15 @@ function PreferencesSubScreen() {
   // option 2: daily steps goal
   return (
     <View style={styles.container}>
-      
       <Text style={styles.normalText}>Theme</Text>
-        {/* <Picker style={styles.picker}>
+        <Picker style={styles.picker}>
           <Picker.Item label="Light" value="Light"/>
           <Picker.Item label="Dark" value="Dark"/>
-        </Picker> */}
+        </Picker>
 
       <Text style={styles.normalText}>Daily Steps Goal</Text>
         <TextInput style={styles.textInput}/> 
-        //daily steps goal is currently not linked to any storage place
+        {/* //daily steps goal is currently not linked to any storage place */}
     </View>
 )};
 
@@ -126,7 +142,7 @@ function EmergencyContactsSubScreen({ route, navigation }) {
     navigation.setOptions({
       headerRight: () => (
         <TouchableOpacity onPress={() => navigation.navigate("Add")} style={{margin: 15}}>
-          <FontAwesome name="plus" size={24} color="black" />
+          <FontAwesome name="plus" size={18} color="black" />
         </TouchableOpacity>
       ),
     });

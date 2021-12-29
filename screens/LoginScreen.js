@@ -1,31 +1,22 @@
 import { StatusBar } from "expo-status-bar";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
   Button,
   TouchableOpacity,
   KeyboardAvoidingView,
 } from "react-native";
-import navigation from '@react-navigation/stack'
+import { useNavigation } from '@react-navigation/core';
 
 import { auth } from "../firebase.js";
-import MyStack from '../App.js'
 
 export default function LoginScreen() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        //navigation.navigate("Home")
-      }
-    })
-  })
+  const navigation = useNavigation();
 
   const handleSignUp = () => {
     auth
@@ -43,6 +34,7 @@ export default function LoginScreen() {
     .then(userCredentials => {
       const user = userCredentials.user;
       console.log('Logged in with', user.email);
+      navigation.replace("MyTabs");
     })
     .catch(error => alert(error.message))
   }
@@ -79,7 +71,8 @@ export default function LoginScreen() {
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity> 
+      <TouchableOpacity
+        onPress={() => navigation.navigate("Setup")}> 
         <Text style={styles.forgot_button}>Don't have an account? Register here.</Text>
       </TouchableOpacity>
  
@@ -91,7 +84,6 @@ export default function LoginScreen() {
 
       <TouchableOpacity 
         onPress = {handleSignUp}
-        // disabled = {loading}
         style={styles.loginBtn}>
         <Text style={styles.loginText}>SIGN UP</Text>
       </TouchableOpacity>

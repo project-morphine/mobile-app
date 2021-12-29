@@ -18,7 +18,7 @@ import Navigation from './navigation';
 // Screens
 import LoginScreen from './screens/LoginScreen';
 import StepCounterScreen from './screens/StepCounter';
-import SettingsStack from './screens/SettingsScreen';
+import Settings from './screens/SettingsScreen';
 
 //Screen names
 // const loginName = "Login";
@@ -96,12 +96,37 @@ import SettingsStack from './screens/SettingsScreen';
 // export default MainContainer;
 
 const Tab = createBottomTabNavigator();
+const stepCounterName = "Home";
+const settingsName = "Settings";
 
 function MyTabs() {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+    initialRouteName={stepCounterName}
+    screenOptions={({ route }) => ({
+      tabBarIcon: ({ focused, color, size }) => {
+        let iconName;
+        let rn = route.name;
+
+        if (rn === stepCounterName) {
+          iconName = focused ? 'ios-bar-chart' : 'ios-bar-chart-outline';
+
+        } else if (rn === settingsName) {
+          iconName = focused ? 'settings' : 'settings-outline';
+        }
+        // You can return any component that you like here!
+        return <Ionicons name={iconName} size={size} color={color} />;
+      },
+    })}
+    tabBarOptions={{
+      activeTintColor: '#171E4A',
+      inactiveTintColor: 'grey',
+      labelStyle: { marginBottom: 5, fontSize: 10 },
+      style: { padding: 10, height: 70}
+    }}>
       <Tab.Screen name="Home" component={StepCounterScreen} />
-      <Tab.Screen name="SettingsStack" component={SettingsStack} />
+      <Tab.Screen name="Settings" component={Settings} options = {{ headerShown: false
+        }}/>
     </Tab.Navigator>
   );
 }
@@ -145,7 +170,7 @@ function MyStack() {
       <Stack.Screen
         name="MyTabs"
         component={MyTabs}
-        options={{
+        options = {{
           headerShown: false
         }}
       />
