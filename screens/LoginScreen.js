@@ -67,15 +67,15 @@ export default function LoginScreen() {
         />
       </View>
  
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => navigation.navigate("Setup")}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => navigation.navigate("Setup")}> 
+      {/* <TouchableOpacity
+        > 
         <Text style={styles.forgot_button}>Don't have an account? Register here.</Text>
-      </TouchableOpacity>
- 
+      </TouchableOpacity> */}
+      
       <TouchableOpacity 
         onPress = {handleLogin}
         style={styles.loginBtn}>
@@ -84,14 +84,15 @@ export default function LoginScreen() {
 
       <TouchableOpacity 
         onPress = {handleSignUp}
-        style={styles.loginBtn}>
-        <Text style={styles.loginText}>SIGN UP</Text>
+        style={styles.signUpBtn}>
+        <Text style={styles.signUpText}>SIGN UP</Text>
       </TouchableOpacity>
     </KeyboardAvoidingView>
   );
 }
 
       // <Image style={styles.image} source={require("assets/TPClogo.png")} />
+      // onPress={() => navigation.navigate('Setup', { pageName = 'personal details' })}
  
 const styles = StyleSheet.create({
   container: {
@@ -110,11 +111,10 @@ const styles = StyleSheet.create({
  
   inputView: {
     backgroundColor: "#A3A3BD",
-    borderRadius: 20,
+    borderRadius: 10,
     width: "70%",
     height: 45,
     marginBottom: 20,
- 
     alignItems: "center",
   },
  
@@ -131,16 +131,31 @@ const styles = StyleSheet.create({
   },
  
   loginBtn: {
-    width: "80%",
-    borderRadius: 20,
+    width: "60%",
+    borderRadius: 5,
     height: 50,
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 40,
+    marginTop: 20,
     backgroundColor: "#171E4A",
+  },
+  signUpBtn: {
+    width: "60%",
+    borderRadius: 5, 
+    height: 50, 
+    alignItems: "center",
+    justifyContent: "center",
+    marginTop: 10,
+    backgroundColor: "white", 
+    borderColor: "#171E4A",
+    borderWidth: 3,
   },
   loginText: {
     color: "white",
+    fontWeight: "bold",
+  },
+  signUpText: {
+    color: "#171E4A",
     fontWeight: "bold",
   },
   separator: {

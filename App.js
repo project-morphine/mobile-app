@@ -10,8 +10,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
-import React from "react";
-import Wizard from "./screens/Wizard";
+// //For Expo Notifications
+// import * as Notifications from 'expo-notifications';
+// import * as Permissions from 'expo-permissions';
+
+import React, { useEffect } from "react";
+import Wizard from "./screens/Wizard"; //for registration pages
 import useColorSCheme from './hooks/useColorScheme';
 import Navigation from './navigation';
 
@@ -19,85 +23,12 @@ import Navigation from './navigation';
 import LoginScreen from './screens/LoginScreen';
 import StepCounterScreen from './screens/StepCounter';
 import Settings from './screens/SettingsScreen';
-
-//Screen names
-// const loginName = "Login";
-// const stepCounterName = "Steps Count";
-// const settingsName = "Settings";
-
-// const Tab = createBottomTabNavigator();
-
-// function LogoTitle() {
-//   return (
-//     <Image
-//       style={{ width: 230, height: 50, margin: 8,}}
-//       source={require('./assets/images/TPC-Website.svg')}
-//     />
-//   );
-// }
-
-// function MainContainer() {
-//   return (
-//     <NavigationContainer>
-//       <Tab.Navigator
-//         initialRouteName={loginName}
-//         screenOptions={({ route }) => ({
-//           tabBarIcon: ({ focused, color, size }) => {
-//             let iconName;
-//             let rn = route.name;
-
-//             if (rn === loginName) {
-//               iconName = focused ? 'log-in' : 'log-in-outline';
-
-//             } else if (rn === stepCounterName) {
-//               iconName = focused ? 'ios-bar-chart' : 'ios-bar-chart-outline';
-
-//             } else if (rn === settingsName) {
-//               iconName = focused ? 'settings' : 'settings-outline';
-//             }
-//             // You can return any component that you like here!
-//             return <Ionicons name={iconName} size={size} color={color} />;
-//           },
-//         })}
-//         tabBarOptions={{
-//           activeTintColor: '#171E4A',
-//           inactiveTintColor: 'grey',
-//           labelStyle: { marginBottom: 5, fontSize: 10 },
-//           style: { padding: 10, height: 70}
-//         }}>
-
-//         <Tab.Screen
-//             options={{
-//             headerTitle: (props) => <LogoTitle {...props} />,
-//             headerRight: () => (
-//               <TouchableOpacity style={{paddingRight: 10}}>
-//                 <Ionicons name="person-circle" size={35} color="grey"/>
-//               </TouchableOpacity>
-//             ),
-//           }}
-//          name={loginName} component={LoginScreen} />
-//         <Tab.Screen 
-//           options={{
-//             headerTitle: (props) => <LogoTitle {...props} />,
-//             headerRight: () => (
-//               <TouchableOpacity style={{paddingRight: 10}}>
-//                 <Ionicons name="person-circle" size={35} color="grey"/>
-//               </TouchableOpacity>
-//             ),
-//           }}
-//           name={stepCounterName} component={StepCounterScreen} />
-//         <Tab.Screen name={settingsName} options={{headerShown: false}} component={SettingsScreen} />
-
-//       </Tab.Navigator>
-//     </NavigationContainer>
-//   );
-// }
-
-// export default MainContainer;
+import AlertsScreen from './screens/AlertsScreen';
 
 const Tab = createBottomTabNavigator();
 const stepCounterName = "Home";
 const settingsName = "Settings";
+const alertName = "Alerts";
 
 function MyTabs() {
   return (
@@ -113,6 +44,8 @@ function MyTabs() {
 
         } else if (rn === settingsName) {
           iconName = focused ? 'settings' : 'settings-outline';
+        } else if (rn === alertName) {
+          iconName = focused ? 'ios-alert-circle' : 'ios-alert-circle-outline';
         }
         // You can return any component that you like here!
         return <Ionicons name={iconName} size={size} color={color} />;
@@ -124,9 +57,20 @@ function MyTabs() {
       labelStyle: { marginBottom: 5, fontSize: 10 },
       style: { padding: 10, height: 70}
     }}>
-      <Tab.Screen name="Home" component={StepCounterScreen} />
-      <Tab.Screen name="Settings" component={Settings} options = {{ headerShown: false
+      <Tab.Screen name="Home" component={StepCounterScreen} options = {{headerRight: () => (
+              <TouchableOpacity style={{paddingRight: 10}}>
+                <Ionicons name="person-circle" size={35} color="grey"/>
+              </TouchableOpacity>),}}/>
+      <Tab.Screen name="Alerts" component={AlertsScreen} options={{headerRight: () => (
+              <TouchableOpacity style={{paddingRight: 10}}>
+                <Ionicons name="person-circle" size={35} color="grey"/>
+              </TouchableOpacity>),}} />
+      <Tab.Screen name="Settings" component={Settings} options = {{ headerShown: false, headerRight: () => (
+              <TouchableOpacity style={{paddingRight: 10}}>
+                <Ionicons name="person-circle" size={35} color="grey"/>
+              </TouchableOpacity>),
         }}/>
+      
     </Tab.Navigator>
   );
 }
@@ -161,16 +105,17 @@ function MyStack() {
         }}
       />
       <Stack.Screen
-        name="Setup"
-        component={Setup}
-        options={{
-          headerShown: false
-        }}
-      />
-      <Stack.Screen
         name="MyTabs"
         component={MyTabs}
         options = {{
+          headerShown: false
+        }}
+      />
+      
+      <Stack.Screen
+        name="Setup"
+        component={Setup}
+        options={{
           headerShown: false
         }}
       />
@@ -179,6 +124,25 @@ function MyStack() {
 }
 
 export default function App() {
+  // useEffect(()=>{
+  //   registerForPushNotification()
+  //   .then(token=>console.log(token))
+  //   .catch(err => console.log(Err))
+  // },[])
+
+  // async function registerForPushNotification() {
+  //   const {status} = await Permissions.getAsync(Permissions.
+  //   NOTIFICATIONS);
+  //   if (status!='granted') {
+  //     const {status} = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+  //   }
+  //   if (status != 'granted') {
+  //     alert('Failure in retrieving push notifications token');
+  //     return;
+  //   }
+  //   token = (await Notifications.getExpoPushTokenAsync()).data;
+  //   return;
+  // }
   return (
     <NavigationContainer>
       <MyStack />
@@ -208,7 +172,7 @@ const styles = StyleSheet.create({
   },
 });
 
-
+////ORIGINAL CODE IN TEMPLATE WITH TABS (expo init)
 // export default function App() {
 //   const colorScheme = useColorScheme();
 

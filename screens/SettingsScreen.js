@@ -6,7 +6,9 @@ import {
   TouchableOpacity,
   SafeAreaView, 
   FlatList,
-  TextInput
+  TextInput, 
+  Vibration,
+  Button, 
 } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 // import { Picker } from 'react-native-picker';
@@ -94,15 +96,17 @@ function SettingsScreen({ navigation }) {
       </TouchableOpacity>
 
       <View
-        style={styles.buttonSeparator}
+        style={styles.bigButtonSeparator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
 
+      {/* <Button title="Vibrate once" onPress={() => Vibration.vibrate()} /> */}
+
       <TouchableOpacity onPress={() => auth.signOut().then(() => {navigation.replace("Login")}
    ).catch(error => alert(error.message))}>
-        <View style={styles.buttonContainer}>
-          <Text style={styles.buttonText}>
+        <View style={styles.signOutBtn}>
+          <Text style={styles.signOutText}>
             Sign Out
           </Text>
         </View>
@@ -235,9 +239,8 @@ function ProstheticFAQSubScreen() {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 0.75,
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
     overflow: 'hidden',
   },
   normalText: {
@@ -248,23 +251,29 @@ const styles = StyleSheet.create({
   separator: {
     marginVertical: 20,
     height: 1,
-    width: '80%',
+    // width: '80%',
   },
 
   buttonSeparator: {
     marginVertical: 8, 
     height: 1, 
-    width: '80%',
+    // width: '80%',
+  },
+
+  bigButtonSeparator: {
+    marginVertical: 8,
+    // height: 350,
+    height: "45%",
   },
 
   buttonContainer: {
     // width: "80%",
-    borderRadius: 25,
+    borderRadius: 5,
     height: 60,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "#171E4A",
-    width: 300, 
+    width: 330, 
     flexDirection: "row",
     marginVertical: 5
   }, 
@@ -279,12 +288,24 @@ const styles = StyleSheet.create({
     color: "white", 
     fontWeight: 'bold',
   },
-  // developmentModeText: {
-  //   marginTop: 10,
-  //   fontSize: 14,
-  //   lineHeight: 19,
-  //   textAlign: 'center',
-  // },
+
+  signOutBtn: {
+    borderRadius: 5,
+    height: 60,
+    alignItems: "center",
+    justifyContent: "center",
+    width: 330, 
+    flexDirection: "row",
+    marginVertical: 5,
+    backgroundColor: "white", 
+    borderColor: "#171E4A",
+    borderWidth: 3,
+  },
+  signOutText: {
+    color: "#171E4A",
+    fontWeight: "bold",
+    fontSize: 18,
+  },
 
   list: {
     width: '99%'
