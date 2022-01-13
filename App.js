@@ -9,6 +9,8 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
+import { auth, db } from "./firebase.js";
+import * as firebase from "firebase";
 
 // //For Expo Notifications
 // import * as Notifications from 'expo-notifications';
@@ -31,6 +33,14 @@ const settingsName = "Settings";
 const alertName = "Alerts";
 
 function MyTabs() {
+  var ref = firebase.database().ref('fallPrediction');
+  ref.on('value', (snapshot) => {
+    const data = snapshot.val();
+    if (data === false) {
+      {fallDetectedAlert};
+    }
+  });
+
   return (
     <Tab.Navigator
     initialRouteName={stepCounterName}

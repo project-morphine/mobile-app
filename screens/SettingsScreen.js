@@ -9,6 +9,7 @@ import {
   TextInput, 
   Vibration,
   Button, 
+  Alert,
 } from 'react-native';
 import { Controller, useForm } from 'react-hook-form';
 // import { Picker } from 'react-native-picker';
@@ -18,19 +19,12 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { auth } from '../firebase';
 import { useNavigation } from '@react-navigation/core';
+import PatientDetails from './PatientDetails';
+import LocatePatientScreen from './LocatePatientScreen';
 
 export default function Settings() {
   const Stack = createStackNavigator();
   const navigation = useNavigation();
-
-  // const handleSignOut = () => {
-  //   auth
-  //   .signOut()
-  //   .then(() => {
-  //     navigation.replace("Login")
-  //   })
-  //   .catch(error => alert(error.message))
-  // }
 
   return (
       <Stack.Navigator>
@@ -39,11 +33,29 @@ export default function Settings() {
         <Stack.Screen name="Emergency Contacts" component={EmergencyContactsSubScreen} />
         <Stack.Screen name="Add" component={AddScreen} />
         <Stack.Screen name="Prosthetic FAQ" component={ProstheticFAQSubScreen}/>
+        <Stack.Screen name="LocatePatient" component={LocatePatientScreen}/>
       </Stack.Navigator>
   );
 }
 
 function SettingsScreen({ navigation }) {
+  const fallDetectedAlert = () =>
+  Alert.alert(
+    "FALL DETECTED",
+    "Dear User, A fall has been detected in the patient.",
+    [
+      {
+        text: "Locate the patient",
+        onPress: () => navigation.navigate("LocatePatient")
+      },
+      {
+        text: "Cancel",
+        onPress: () => console.log("Cancel Pressed"),
+        style: "cancel"
+      },
+    ]
+  );
+
   return (
     <SafeAreaView style={styles.container}>
       <View
@@ -94,17 +106,21 @@ function SettingsScreen({ navigation }) {
           </Text>
         </View>
       </TouchableOpacity>
-
+{/* 
       <View
         style={styles.bigButtonSeparator}
         lightColor="#eee"
         darkColor="rgba(255,255,255,0.1)"
       />
+       */}
+      {/* <Button title="Give me an alert!" onPress={fallDetectedAlert}></Button> */}
+      <TouchableOpacity style={styles.alert} onPress = {fallDetectedAlert}>
+        <Text style={styles.alertButtonText}>
+          Give me an alert!  
+        </Text>
+      </TouchableOpacity>
 
-      {/* <Button title="Vibrate once" onPress={() => Vibration.vibrate()} /> */}
-
-      <TouchableOpacity onPress={() => auth.signOut().then(() => {navigation.replace("Login")}
-   ).catch(error => alert(error.message))}>
+      <TouchableOpacity onPress={() => auth.signOut().then(() => {navigation.replace("Login")}).catch(error => alert(error.message))}>
         <View style={styles.signOutBtn}>
           <Text style={styles.signOutText}>
             Sign Out
@@ -120,10 +136,8 @@ function SettingsScreen({ navigation }) {
   );
 }
 
+//SUB SCREEN 1: PREFERENCES
 function PreferencesSubScreen() {
-  //idk what preferences to put
-  //option 1: in-app theme (dark or light)
-  // option 2: daily steps goal
   return (
     <View style={styles.container}>
       <Text style={styles.normalText}>Theme</Text>
@@ -138,6 +152,7 @@ function PreferencesSubScreen() {
     </View>
 )};
 
+//SUB SCREEN2: EMERGENCY CONTACTS
 function EmergencyContactsSubScreen({ route, navigation }) {
   const SAMPLE_CONTACTS = [
   { name: "Emergency Contact 1", number: "91234567", id: "0" }];
@@ -181,7 +196,7 @@ function EmergencyContactsSubScreen({ route, navigation }) {
   );
 }
 
-//SubScreen of Emergency Contacts Screen
+//SUBSUBSCREEN under EMERGENCY CONTACTS SCREEN
 function AddScreen({ navigation }){
   const [contactName, setContactName] = useState("");
   const [contactNumber, setContactNumber] = useState("");
@@ -217,6 +232,7 @@ function AddScreen({ navigation }){
   );
 }
 
+//SUB SCREEN 3: Prosthetic FAQs
 function ProstheticFAQSubScreen() {
   return(
     <View>
@@ -226,16 +242,6 @@ function ProstheticFAQSubScreen() {
     </View>
   )
 }
-
-// <TouchableOpacity onPress={DecreaseCount}>
-//   <Text>Decrease</Text>
-// </TouchableOpacity>;
-
-      // <Text style={styles.buttonText}>Theme</Text>
-      // <Picker style={styles.picker}>
-      //   <Picker.Item label="Light" value="Light"/>
-      //   <Picker.Item label="Dark" value="Dark"/>
-      // </Picker>
 
 const styles = StyleSheet.create({
   container: {
@@ -333,5 +339,16 @@ const styles = StyleSheet.create({
     marginTop: 10,
     width: "90%",
     marginBottom: 6,
+  },
+  alert: {
+    // alignItems: "center",
+    height: "48%",
+    width: "100%", 
+    // backgroundColor:"red",
+  },
+  alertButtonText: {
+    // color: "#0000ffff",
+    color: 'lightgrey',
+    fontSize: 1,
   },
 });
