@@ -1,24 +1,52 @@
-# Mobile-Application for Project Morphine
+<h3 align="center">
+  Project Morphine 
+</h3>
+<p align="center">
+  Companion mobile app for Project Morphine. <br />Built with React Native and Expo.
+</p>
+<p align="center">
+  <img src="https://i.imgur.com/Gly55W4.png" alt="banner" />
+</p>
 
-# FEATURES
-- Step Counter (Home Tab)
-- Push Notifications for Alerts (Alerts Tab) - currently non-functional
-- Settings Page for Patient to customize, currently not linked to Firebase, In-app Preferences not functional
+## Requirements of App
+- Allow patients to keep track of their daily step count
+- Contacts emergency contacts in the case of a detected fall
+- Notifies patients of low battery level in prosthetic
 
-# POSSIBLE FUTURE UPDATES: 
+## Features
+
+- Sign up for new users
+- Log in and manage profile
+- Access to emergency contacts
+- Step Counter
+- Push Notifications for Alerts
+
+## Future Updates
+
 - Location visualisation
 - Posture Correction Reminders
-- Dashboard for Activities (Home Tab)
+- Dashboard for Activities
+- Deploy App
 
-# Requirements of App
-Allow patients to keep track of their daily step count
-Contacts emergency contacts in the case of a detected fall
-Notifies patients of low battery level in prosthetic
 
-# Guide to different components
+## Install (dev)
+
+To install the project, navigate to the directory and run:
+
+- `yarn global add expo-cli`
+- `yarn install`
+
+## Run
+
+To run the project, run the following commands:
+
+- `expo start`
+
+
+## Guide to different components
 The different frames are currently written in javascript files, though there are three files (under screens: "NotFoundScreen.tsx", "TabOneScreen.tsx", "TabTwoScreen.tsx") in '.tsx' format, those files are from the original template and are not used in this app.
 
-Current Frames (returned in MyStack() in App.js): 
+Current Frames (returned in MyStack() in ./App.js): 
 1. Login Page (./screens/LoginScreen.js)
     Linked to Firebase Authentication, keying in a username and password in the LoginPage and pressing sign up will register an account an allow for login
 
@@ -47,16 +75,12 @@ Current Frames (returned in MyStack() in App.js):
     - Phone Verification (./screens/PhoneVerification.js)
     - Successful Onboarding (./screens/SuccessfulOnboarding.js)
 
-# Visual Reference of the Application
+## Visual Reference of the Application
 https://whimsical.com/morphine-app-ETwAPHR4rNEiKFLvBb75SR 
 (Bottom are the actual sccreenshots from the app)
 
-# KNOWN ISSUES
+## Known Issues
 Render Error in SetupScreens
 - This causes the SetupScreen to not be rendered
 - These screens were actually developed by the senior team (2020-2021 Team)
 - We have not been able to find the source of the issue, but we believe that this may have something to do with the updates of the libraries since the issue only occurred after various updates.
-
-
-# REMARKS
-we are sorry for the horrible quality of the code, thank you. 
