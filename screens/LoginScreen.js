@@ -66,7 +66,7 @@ export default function LoginScreen() {
           onChangeText={(password) => setPassword(password)}
         />
       </View>
- 
+
       <TouchableOpacity onPress={() => navigation.navigate("Setup")}>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
